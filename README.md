@@ -4,15 +4,22 @@
 
 ## Dev. ROADMAP:
 
+### 0.0.1
 - [ ] Merge useful commits from others in github (features & fixes)
 - [ ] Make JSON the primary content holder format
 - [ ] Single pages for Uploads
-- [ ] clean up for `0.0.1`
+- [ ] clean up
 
---------
+
+### 0.0.2
+- [ ] multilanguage
+- [ ] clean up
+
+
+
+### future
 
 - [ ] interchangeable templating
-- [ ] clean up for `0.0.2`
 
 
 ## Overview
