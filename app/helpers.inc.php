@@ -153,6 +153,35 @@ Class Helpers {
     }
     return str_replace(array_keys($mapping), $mapping, $string);
   }
+  
+  static function loadJSON($input){
+    $file = '';
+    // if input is a file, process it
+    if (strpos($input, "\n") === false && is_file($input)){
+      $file = $input;
+      ob_start();
+      $retval = include($input);
+      $content = ob_get_clean();
+  
+      // if an array is returned by the config file assume it's in plain php form else in YAML
+      $input = is_array($retval) ? $retval : $content;
+    }
+  
+    // if an array is returned by the config file assume it's in plain php form else in YAML
+    if (is_array($input)){
+      return $input;
+    }
+  
+    try{
+      $ret = json_decode($input, true);
+    }
+    catch (Exception $e){
+      throw new InvalidArgumentException(sprintf('Unable to parse %s: %s', $file ? sprintf('file "%s"', $file) : 'string', $e->getMessage()));
+    }
+  
+    return $ret;
+  }
+
 
 }
 
