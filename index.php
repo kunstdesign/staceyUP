@@ -8,7 +8,7 @@ if(phpversion() < 5.3) {
 } else {
 
   # require config
-  require_once './extensions/config.php';
+  require_once './app/extensions/config.php';
   # require helpers class so we can use rglob
   require_once './app/helpers.inc.php';
   # require the yaml parser
@@ -16,7 +16,7 @@ if(phpversion() < 5.3) {
   # include any php files which sit in the app folder
   foreach(Helpers::rglob('./app/**.inc.php') as $include) include_once $include;
   # include any custom extensions
-  foreach(Helpers::rglob('./extensions/**.inc.php') as $include) include_once $include;
+  foreach(Helpers::rglob('./app/extensions/**.inc.php') as $include) include_once $include;
 
   # start the app
   new Stacey($_GET);

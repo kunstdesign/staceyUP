@@ -26,7 +26,7 @@
 /* $Id: slirconfig-sample.class.php 123 2010-12-21 18:58:03Z joe.lencioni $ */
 
 require_once 'slirconfigdefaults.class.php';
-require_once '../../../extensions/config.php';
+require_once '../../extensions/config.php';
 
 /**
  * SLIR Config Class
