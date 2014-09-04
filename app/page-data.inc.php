@@ -199,15 +199,10 @@ Class PageData {
     
     #translate content/_shared.json 
     $shared_prefix = Config::$content_folder.'/_shared.';
-    $shared_kind = [
-      file_exists(Config::$content_folder.'/_shared.json'),
-      file_exists(Config::$content_folder.'/_shared.yml'),
-      file_exists(Config::$content_folder.'/_shared.txt')
-    ];
     
-    $shared_type =  $shared_kind[0] ? 'json' :(
-                    $shared_kind[1] ? 'yml'  :(
-                    $shared_kind[2] ? 'txt'  :
+    $shared_type =  file_exists($shared_prefix.'json') ? 'json' :(
+                    file_exists($shared_prefix.'json') ? 'yml'  :(
+                    file_exists($shared_prefix.'json') ? 'txt'  :
                     false));
                     
     $shared_file_path = $shared_type ? Config::$content_folder.'/_shared.'.$shared_type : false;
