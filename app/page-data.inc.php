@@ -193,10 +193,32 @@ Class PageData {
   }
 
   static function get_shared_data() {
-    if (self::$shared) return self::$shared;
-    $shared_file_path = file_exists(Config::$content_folder.'/_shared.yml') ? Config::$content_folder.'/_shared.yml' : Config::$content_folder.'/_shared.txt';
-    if (file_exists($shared_file_path)) {
-      return self::$shared = sfYaml::load($shared_file_path);
+    if (self::$shared){ 
+      return self::$shared;
+    }
+    
+    #translate content/_shared.json 
+    $shared_prefix = Config::$content_folder.'/_shared.';
+    $shared_kind = [
+      file_exists(Config::$content_folder.'/_shared.json'),
+      file_exists(Config::$content_folder.'/_shared.yml'),
+      file_exists(Config::$content_folder.'/_shared.txt')
+    ];
+    
+    $shared_type =  $shared_kind[0] ? 'json' :(
+                    $shared_kind[1] ? 'yml'  :(
+                    $shared_kind[2] ? 'txt'  :
+                    false));
+                    
+    $shared_file_path = $shared_type ? Config::$content_folder.'/_shared.'.$shared_type : false;
+    
+    
+    if ($shared_file_path){
+      if($shared_type == "json"){
+        return self::$shared = Helpers::loadJSON($shared_file_path);
+      }else{
+        return self::$shared = sfYaml::load($shared_file_path);
+      }
     } else {
       return array();
     }
