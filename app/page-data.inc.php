@@ -201,8 +201,8 @@ Class PageData {
     $shared_prefix = Config::$content_folder.'/_shared.';
     
     $shared_type =  file_exists($shared_prefix.'json') ? 'json' :(
-                    file_exists($shared_prefix.'json') ? 'yml'  :(
-                    file_exists($shared_prefix.'json') ? 'txt'  :
+                    file_exists($shared_prefix.'yml' ) ? 'yml'  :(
+                    file_exists($shared_prefix.'txt' ) ? 'txt'  :
                     false));
                     
     $shared_file_path = $shared_type ? Config::$content_folder.'/_shared.'.$shared_type : false;
