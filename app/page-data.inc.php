@@ -193,34 +193,56 @@ Class PageData {
   }
 
   static function get_shared_data() {
-    if (self::$shared) return self::$shared;
-    $shared_file_path = file_exists(Config::$content_folder.'/_shared.yml') ? Config::$content_folder.'/_shared.yml' : Config::$content_folder.'/_shared.txt';
-    if (file_exists($shared_file_path)) {
-      return self::$shared = sfYaml::load($shared_file_path);
+    if (self::$shared){ 
+      return self::$shared;
+    }
+    
+    #translate content/_shared.json 
+    $shared_prefix    = Config::$content_folder.'/_shared.';
+    $shared_type      = Helpers::contentType($shared_prefix);
+    $shared_file_path = $shared_type ? $shared_prefix.$shared_type : false;
+    
+    
+    if ($shared_file_path){
+      if($shared_type == "json"){
+        return self::$shared = Helpers::loadJSON($shared_file_path);
+      }else{
+        return self::$shared = sfYaml::load($shared_file_path);
+      }
     } else {
       return array();
     }
   }
 
   static function preparse_text($text) {
-    $content = preg_replace_callback('/:\s*(\n)?\+{3,}([\S\s]*?)\+{3,}/', create_function('$match',
-      'return ": |\n  ".preg_replace("/\n/", "\n  ", $match[2]);'
-    ), $text);
+   $content = preg_replace_callback('/:\s*(\n)?\+{3,}([\S\s]*?)\+{3,}/', function($match){
+      return ": |\n  ".preg_replace("/\n/", "\n  ", $match[2]);
+     }, $text);
     return $content;
   }
 
   static function create_textfile_vars($page, $content = false) {
     # store contents of content file (if it exists, otherwise, pass back an empty string)
     if ($content) {
+      #i don't kwnow this case yet. in the standart content it's not evoked.
       $vars = sfYaml::load($content);
     } else {
-      $content_file = sprintf('%s/%s', $page->file_path, $page->template_name);
-      $content_file_path = file_exists($content_file.'.yml') ? $content_file.'.yml' : $content_file.'.txt' ;
-      if (!file_exists($content_file_path)) return;
-      # Correct formatting of fenced content
-      $content = file_get_contents($content_file_path);
-      $content = self::preparse_text($content);
-      $vars = sfYaml::load($content);
+      $content_prefix    = $page->file_path.'/'.$page->template_name.'.';
+      $content_type      = Helpers::contentType($content_prefix);
+      $content_file_path = $content_type ? $content_prefix.$content_type : false;
+      
+      if($content_file_path){
+        $content = file_get_contents($content_file_path);
+        if($content_type == "json"){
+          $vars = Helpers::loadJSON($content);
+        }else{ 
+          # Correct formatting of fenced content, YML
+          $content = self::preparse_text($content);
+          $vars = sfYaml::load($content);
+        }
+      }else{
+        return;
+      }
     }
 
     # include shared variables for each page
