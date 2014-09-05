@@ -113,7 +113,7 @@ Class Cache {
 
   function write_cache() {
     $fp = fopen($this->cachefile, 'w');
-    fwrite($fp, ob_get_contents());
+    fwrite($fp, ob_get_contents() . Helpers::perfLog('cached'));
     fclose($fp);
   }
 

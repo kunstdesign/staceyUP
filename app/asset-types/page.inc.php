@@ -43,7 +43,7 @@ Class Page {
       $data = $this->clean_json($data);
     }
     if(strtolower($this->template_type) == 'html') {
-      $data .= Helpers::cacheComments($start);
+      $data .= Helpers::perfLog('render', $start);
     }
     return $data;
   }
