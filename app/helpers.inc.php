@@ -181,6 +181,14 @@ Class Helpers {
   
     return $ret;
   }
+  
+  static function contentType($prefix){
+    $type = file_exists($prefix.'json') ? 'json' :(
+            file_exists($prefix.'yml' ) ? 'yml'  :(
+            file_exists($prefix.'txt' ) ? 'txt'  :
+            false));
+    return $type;
+  }
 
 
 }
