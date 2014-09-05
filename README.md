@@ -5,8 +5,8 @@
 ## Dev. ROADMAP:
 
 ### 0.0.1
-- [ ] Merge useful commits from others in github (features & fixes)
-- [ ] Make JSON the primary content holder format
+- [X] Merge useful commits from others in github (features & fixes)
+- [X] Make JSON the primary content holder format
 - [ ] Single pages for Uploads
 - [ ] clean up
 
