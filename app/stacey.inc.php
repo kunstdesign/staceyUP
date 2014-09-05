@@ -82,6 +82,7 @@ Class Stacey {
   }
 
   function render($file_path, $template_file) {
+    $res_kind = strtolower(pathinfo($template_file, PATHINFO_EXTENSION));
     $cache = new Cache($file_path, $template_file);
     # set any custom headers
     $this->set_content_type($template_file);
@@ -96,7 +97,9 @@ Class Stacey {
       # render the existing cache
       echo $cache->render();
     }
-    echo Helpers::perfLog('elapsed');
+    if($res_kind == 'html'){
+      echo Helpers::perfLog('elapsed');
+    }
   }
 
   function create_page($file_path) {

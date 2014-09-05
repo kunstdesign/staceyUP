@@ -6,6 +6,7 @@ Class Cache {
   var $path_hash;
   var $cachefile;
   var $cache_prefix = 'c-';
+  var $res_kind;
 
   function __construct($file_path, $template_file) {
     # generate an md5 hash from the file_path
@@ -18,6 +19,7 @@ Class Cache {
     $this->cachefile = Config::$cache_folder.'/pages/'.$this->cache_prefix.$this->path_hash.'-'.$content_hash;
     # store the hash
     $this->hash = $this->cache_prefix.$this->path_hash.'-'.$content_hash;
+    $this->res_kind = strtolower(pathinfo($template_file, PATHINFO_EXTENSION));
   }
 
   function generate_hash($str) {
@@ -113,7 +115,13 @@ Class Cache {
 
   function write_cache() {
     $fp = fopen($this->cachefile, 'w');
-    fwrite($fp, ob_get_contents() . Helpers::perfLog('cached'));
+    $content = ob_get_contents();
+    
+    if(strtolower($this->res_kind) == "html"){
+      $content .= Helpers::perfLog('cached');
+    }
+    
+    fwrite($fp, $content);
     fclose($fp);
   }
 
