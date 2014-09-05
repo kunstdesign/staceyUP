@@ -21,6 +21,7 @@ class Config {
   // newlines in paragraph-like content as real line breaks, which could be what
   // was intended. Defaults to use GFM style linebreaks
   public static $md_gfm_style_linebreaks = true;
+  public static $perfLogs = true;
 }
 
 ?>

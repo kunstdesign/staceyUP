@@ -7,6 +7,7 @@
 ### 0.0.1
 - [X] Merge useful commits from others in github (features & fixes)
 - [X] Make JSON the primary content holder format
+- [X] Add performance logs (HTML only)
 - [ ] Single pages for Uploads
 - [ ] clean up
 

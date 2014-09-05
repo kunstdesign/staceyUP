@@ -24,7 +24,7 @@ Class Stacey {
 
   function php_fixes() {
     # in PHP/5.3.0 they added a requisite for setting a default timezone, this should be handled via the php.ini, but as we cannot rely on this, we have to set a default timezone ourselves
-    if(function_exists('date_default_timezone_set')) date_default_timezone_set('Australia/Melbourne');
+    if(function_exists('date_default_timezone_set')) date_default_timezone_set('America/Sao_Paulo');
   }
 
   function set_content_type($template_file) {
@@ -82,6 +82,7 @@ Class Stacey {
   }
 
   function render($file_path, $template_file) {
+    $res_kind = strtolower(pathinfo($template_file, PATHINFO_EXTENSION));
     $cache = new Cache($file_path, $template_file);
     # set any custom headers
     $this->set_content_type($template_file);
@@ -92,10 +93,13 @@ Class Stacey {
     if($cache->expired()) {
       # render page & create new cache
       echo $cache->create($this->route);
+      echo Helpers::perfLog($res_kind, 'fresh');
     } else {
       # render the existing cache
       echo $cache->render();
     }
+
+    echo Helpers::perfLog($res_kind, 'elapsed');
   }
 
   function create_page($file_path) {
