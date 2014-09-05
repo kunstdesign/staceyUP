@@ -194,20 +194,23 @@ Class Helpers {
   }
   
   
-  static function perfLog($kind, $value = false){
-   #performance logs, output as HTML comments 
-    if($kind == 'elapsed'){
-      $elapsed = (microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"])*1000 . "ms";
-      return self::htmlComment('elapsed', $elapsed);
-    }else if($kind == 'render'){
-      $renderTIME = (microtime(true) - $value) * 1000 ."ms";
-      return self::htmlComment('render', $renderTIME);
-    }else if($kind == 'cached'){
-      $time = time();
-      $tz = explode(":", date("P", $time));
-      $timeSTRING = date("F jS, Y, h:iA", $time)." [GMT".intval($tz[0])."]";
-      return self::htmlComment('cached', $timeSTRING);
+  static function perfLog($res_type, $kind, $value = false){
+    if(strtolower($res_type) == 'html' && Config::$perfLogs){
+     #performance logs, output as HTML comments 
+      if($kind == 'elapsed'){
+        $elapsed = (microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"])*1000 . "ms";
+        return self::htmlComment('elapsed', $elapsed);
+      }else if($kind == 'render'){
+        $renderTIME = (microtime(true) - $value) * 1000 ."ms";
+        return self::htmlComment('render', $renderTIME);
+      }else if($kind == 'cached'){
+        $time = time();
+        $tz = explode(":", date("P", $time));
+        $timeSTRING = date("F jS, Y, h:iA", $time)." [GMT".intval($tz[0])."]";
+        return self::htmlComment('cached', $timeSTRING);
+      }
     }
+    return '';
   }
 
 

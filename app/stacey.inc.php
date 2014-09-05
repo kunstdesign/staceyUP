@@ -97,9 +97,8 @@ Class Stacey {
       # render the existing cache
       echo $cache->render();
     }
-    if($res_kind == 'html'){
-      echo Helpers::perfLog('elapsed');
-    }
+
+    echo Helpers::perfLog($res_kind, 'elapsed');
   }
 
   function create_page($file_path) {

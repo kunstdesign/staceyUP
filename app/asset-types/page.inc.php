@@ -42,9 +42,7 @@ Class Page {
     if(strtolower($this->template_type) == 'json') {
       $data = $this->clean_json($data);
     }
-    if(strtolower($this->template_type) == 'html') {
-      $data .= Helpers::perfLog('render', $start);
-    }
+    $data .= Helpers::perfLog($this->template_type, 'render', $start);
     return $data;
   }
 

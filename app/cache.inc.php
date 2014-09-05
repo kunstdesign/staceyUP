@@ -114,12 +114,9 @@ Class Cache {
   }
 
   function write_cache() {
-    $fp = fopen($this->cachefile, 'w');
-    $content = ob_get_contents();
-    
-    if(strtolower($this->res_kind) == "html"){
-      $content .= Helpers::perfLog('cached');
-    }
+    $fp       = fopen($this->cachefile, 'w');
+    $content  = ob_get_contents();
+    $content .= Helpers::perfLog($this->res_kind, 'cached');
     
     fwrite($fp, $content);
     fclose($fp);
