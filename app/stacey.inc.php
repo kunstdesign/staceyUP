@@ -93,6 +93,7 @@ Class Stacey {
     if($cache->expired()) {
       # render page & create new cache
       echo $cache->create($this->route);
+      echo Helpers::perfLog($res_kind, 'fresh');
     } else {
       # render the existing cache
       echo $cache->render();
