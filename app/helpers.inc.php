@@ -189,6 +189,22 @@ Class Helpers {
             false));
     return $type;
   }
+  static function htmlComment($title, $value = false, $trim = false){
+    return ($trim ? '' : "\n") . '<!-- ' . $title . ($value ? ': '.$value : '') . ' -->';
+  }
+  
+  static function cacheComments($start){
+    $time = time();
+    $tz = explode(":", date("P", $time));
+    $timeSTRING = date("F jS, Y, h:iA", $time)." [GMT".intval($tz[0])."]";
+    
+    $renderTIME = (microtime(true) - $start) * 1000 ."ms";
+    
+    $comments = self::htmlComment('render', $renderTIME) . self::htmlComment('cached', $timeSTRING);
+    
+    
+    return $comments;
+  }
 
 
 }
