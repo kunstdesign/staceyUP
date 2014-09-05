@@ -35,10 +35,15 @@ Class Page {
   }
 
   function parse_template() {
-    $data = TemplateParser::parse($this->data, $this->template_file);
+    $start = microtime(true);
+    $data  = TemplateParser::parse($this->data, $this->template_file);
+    
     # post-parse JSON
-    if (strtolower($this->template_type) == 'json') {
+    if(strtolower($this->template_type) == 'json') {
       $data = $this->clean_json($data);
+    }
+    if(strtolower($this->template_type) == 'html') {
+      $data .= Helpers::cacheComments($start);
     }
     return $data;
   }
