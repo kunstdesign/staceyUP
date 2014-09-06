@@ -208,14 +208,12 @@ Class Helpers {
         $tz = explode(":", date("P", $time));
         $timeSTRING = date("F jS, Y, h:iA", $time)." [GMT".intval($tz[0])."]";
         return self::htmlComment('cached', $timeSTRING);
-      }else if($kind == 'fresh'){
+      }else if($kind == 'fresh'){
         return self::htmlComment('fresh', 'just parsed!');
       }
     }
     return '';
   }
 
-
 }
-
 ?>
