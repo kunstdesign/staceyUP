@@ -7,31 +7,8 @@ Class Stacey {
   var $route;
 
   function handle_redirects() {
-    # rewrite any calls to /index or /app back to /
-    if(preg_match('/^\/?(index|app)\/?$/', $_SERVER['REQUEST_URI'])) {
-      header('HTTP/1.1 301 Moved Permanently');
-      header('Location: ../');
-      return true;
-    }
-    # add trailing slash if required
-    if(!preg_match('/\/$/', $_SERVER['REQUEST_URI']) && !preg_match('/[\.\?\&][^\/]+$/', $_SERVER['REQUEST_URI'])) {
-      header('HTTP/1.1 301 Moved Permanently');
-      header('Location:'.$_SERVER['REQUEST_URI'].'/');
-      return true;
-    }
-    if(preg_match('/\/_?media\.json$/', $_SERVER['REQUEST_URI'])){
-      $url = Array();
-      preg_match('/^\/(.*?)\/_?media\.json$/', $_SERVER['REQUEST_URI'], $url);
-      $path = Helpers::url_to_file_path($url[1]);
-      $file = $path.'/_media.json';
-      if(file_exists($file)){
-        $content = file_get_contents($file);
-        header('Content-type: application/json; charset=utf-8');
-        echo($content);
-        die;
-      }
-    }
-    return false;
+    $route = new Routes($_SERVER['REQUEST_URI']);
+    return $route->redirected;
   }
 
   function php_fixes() {
