@@ -58,6 +58,7 @@ Class Page {
 
   static function template_name($file_path) {
     $txts = array_keys(Helpers::list_files($file_path, '/\.(json|yml|txt)/'));
+    $txts = array_filter($txts, function($x){return strpos($x, '_media.json') === false;});
     # return first matched .json file
     return (!empty($txts)) ? preg_replace('/\.(json|yml|txt)/', '', $txts[0]) : false;
   }

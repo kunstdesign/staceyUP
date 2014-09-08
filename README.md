@@ -9,6 +9,11 @@
 - [X] Make JSON the primary content holder format
 - [X] Add performance logs (HTML only)
 - [ ] Single pages for Uploads
+  - [X] _media.json (specific case, as of 0.0.1)
+  - [ ] Routes to _media.json (for APIs)
+  - [ ] Render pages based on _media.json
+  - [ ] correct routing to individual pages
+- [ ] Add routes to JSONs, for READ APIs
 - [ ] clean up
 
 

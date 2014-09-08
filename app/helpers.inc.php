@@ -64,6 +64,8 @@ Class Helpers {
   static function build_file_cache($dir = '.') {
     # build file cache
     $files = glob($dir.'/*');
+    #ignore _media.json (it's only dynamically created, at the cache stage)
+    $files = array_filter($files, function($x){return strpos($x, '_media.json') === false;});
     $files = is_array($files) ? $files : array();
     foreach($files as $path) {
       $file = basename($path);
@@ -215,5 +217,42 @@ Class Helpers {
     return '';
   }
 
+  static function fileNames($arr){
+    //input: regular array
+    $names = $arr;
+    $names = array_map(function($str){
+      $tmp = explode('.', $str);
+      array_pop($tmp);
+      return implode($tmp, '.');
+    }, $arr);
+    return $names;
+  }
+  
+  static function duplicates($arr){
+    $repeats = array_count_values($arr);
+    $only_dupes = array_filter($repeats, function($x){
+      return $x > 1;
+    });
+    return array_keys($only_dupes);
+  }
+  
+  static function write_JSON($route, $data, $filename = '_media.json', $is_path = false){
+    //input PHP array
+    //write array as JSON, if it's not empty.
+    if(!empty($data)){
+      $path = $is_path ? $route : Helpers::url_to_file_path($route);
+      $file = $path.'/'.$filename;
+      if(!file_exists($file) && is_writable($path) || file_exists($file) && is_writable($file)){      
+        $fp       = fopen($file, 'w');
+        $content  = json_encode($data);
+        fwrite($fp, $content);
+        fclose($fp);
+        return $content;
+      }
+    }
+    return false;
+  }
+  
 }
+
 ?>

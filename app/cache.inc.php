@@ -105,6 +105,8 @@ Class Cache {
       if(is_writable(Config::$cache_folder.'/pages') && !$page->data['bypass_cache']) $this->write_cache();
     # end buffer
     ob_end_flush();
+    # set _media.json if needed
+    Gifster::mediaJSON($route, $page->data['numbered_images']);
     return '';
   }
 
