@@ -253,6 +253,42 @@ Class Helpers {
     return false;
   }
   
+  static function set_content_type_header($kind){
+    switch ($kind) {
+      case 'txt':
+        # set text/utf-8 charset header
+        header("Content-type: text/plain; charset=utf-8");
+        break;
+      case 'atom':
+        # set atom+xml/utf-8 charset header
+        header("Content-type: application/atom+xml; charset=utf-8");
+        break;
+      case 'rss':
+        # set rss+xml/utf-8 charset header
+        header("Content-type: application/rss+xml; charset=utf-8");
+        break;
+      case 'rdf':
+        # set rdf+xml/utf-8 charset header
+        header("Content-type: application/rdf+xml; charset=utf-8");
+        break;
+      case 'xml':
+        # set xml/utf-8 charset header
+        header("Content-type: text/xml; charset=utf-8");
+        break;
+      case 'json':
+        # set json/utf-8 charset header
+        header('Content-type: application/json; charset=utf-8');
+        break;
+      case 'css':
+        # set text/css charset header
+        header('Content-type: text/css; charset=utf-8');
+        break;
+      default:
+        # set html/utf-8 charset header
+        header("Content-type: text/html; charset=utf-8");
+    }
+  }
+  
 }
 
 ?>
