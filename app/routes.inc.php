@@ -69,7 +69,7 @@ Class Routes {
 		$media_number = $media_match[1];
 
 		$json_file = $this->parent_path.'/_media.json';
-		if(file_exists($json_file) && $media_number){
+		if($media_number && file_exists($json_file)){
 			$filename = false;
 			$media_json = Helpers::loadJSON($json_file);
 			$is_media = in_array($media_number, $media_json);
