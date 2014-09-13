@@ -1,6 +1,7 @@
 <?php
 Class Routes {
 	var $url_path;
+	var $trim_path;
 	var $file_path;
 	var $parent_url;
 	var $parent_path;
@@ -10,9 +11,12 @@ Class Routes {
 	function __construct($url) {
 	  # store url and converted file path
 	  $this->url_path   = $url;
-	  $this->file_path  = Helpers::url_to_file_path($url);
-	  $this->redirected = false;
+	  $this->trim_path = trim($url,'/');
+	  $this->file_path  = Helpers::url_to_file_path($this->trim_path);
 	  
+	  $this->parent_url  = preg_replace('/\/([^\/]+[\/]?)$/', '', $this->trim_path);
+	  $this->parent_path = Helpers::url_to_file_path($this->parent_url);
+	   
 	  #routes
 	  $methods = get_class_methods($this);
 	  forEach($methods as $method){
@@ -20,14 +24,12 @@ Class Routes {
 			$this->{$method}();
 	  	}
 	  }
-	  echo $this->redirected;
 	}
 	
 	
 	//Controllers:
 	# rewrite any calls to /index or /app back to /
 	function route_sandbox(){
-		
 		if(preg_match('/^\/?(index|app)\/?$/', $this->url_path)) {
 		  header('HTTP/1.1 301 Moved Permanently');
 		  header('Location: ../');
