@@ -11,8 +11,9 @@
 - [ ] Single pages for Uploads
   - [X] _media.json (specific case, as of 0.0.1)
   - [X] Routes to _media.json (for APIs)
-  - [ ] Render pages based on _media.json
-  - [ ] correct routing to individual pages
+  - [X] Render pages based on _media.json
+  - [X] correct routing to individual pages
+  - [ ] Add parent data to the dynamic templates
 - [ ] Add routes to JSONs, for READ APIs
 - [ ] clean up
 
