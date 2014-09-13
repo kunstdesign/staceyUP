@@ -75,12 +75,13 @@ Class Routes {
 			if($media_number && file_exists($json_file)){
 				$filename   = false;
 				$media_json = Helpers::loadJSON($json_file);
-				$is_media   = in_array($media_number, $media_json);
-				$mediapad   = in_array(str_pad($media_number, 8, '0', STR_PAD_LEFT), $media_json);
+				$padded     = str_pad($media_number, 8, '0', STR_PAD_LEFT); 
+				$is_media   = in_array($media_number, $media_json, true);
+				$is_padded  = in_array($padded, $media_json, true);
 				
 				//solve naming inconsistency, check for direct number & padded version (8 digits)
-				if($is_media){ $filename = $media_number;
-				}else if($mediapad){ $filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);}
+				if($is_media){$filename = $media_number;}
+				else if($is_padded){$filename = $padded;}
 				
 				if($filename){
 					//ok, it's a single media page, (obeying custom bussiness logic for GIFSTER);
