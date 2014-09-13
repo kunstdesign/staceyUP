@@ -60,6 +60,30 @@ Class Routes {
 			}
 		}
 	}
+	
+	function route_single(){
+		$media_match = Array();
+		preg_match('/\/(\d+)\/?$/', $this->url_path, $media_match);
+		$media_number = $media_match[1];
+
+		$json_file = $this->parent_path.'/_media.json';
+		if(file_exists($json_file) && $media_number){
+			$filename = false;
+			$media_json = Helpers::loadJSON($json_file);
+			$is_media = in_array($media_number, $media_json);
+			$mediapad = in_array(str_pad($media_number, 8, '0', STR_PAD_LEFT), $media_json);
+			
+			if($is_media){
+				$filename = $media_number;
+			}else if($mediapad){
+				$filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);
+			}
+			if($filename){
+				$view = new dynTemplate("single");
+				$view->imgSrc = $filename;
+				echo $view;
+				die;	
+			}
 		}
 	}
 }
