@@ -65,39 +65,39 @@ Class Routes {
 	
 	function route_single(){
 		if(preg_match('/\/\d+\/?$/', $this->url_path)){
-		//media_number
-		$media_match = Array();
-		preg_match('/\/(\d+)\/?$/', $this->url_path, $media_match);
-		$media_number = $media_match[1];
-
-		$json_file = $this->parent_path.'/_media.json';
-		
-		if($media_number && file_exists($json_file)){
-			$filename   = false;
-			$media_json = Helpers::loadJSON($json_file);
-			$is_media   = in_array($media_number, $media_json);
-			$mediapad   = in_array(str_pad($media_number, 8, '0', STR_PAD_LEFT), $media_json);
+			//media_number
+			$media_match = Array();
+			preg_match('/\/(\d+)\/?$/', $this->url_path, $media_match);
+			$media_number = $media_match[1];
+	
+			$json_file = $this->parent_path.'/_media.json';
 			
-			//solve naming inconsistency, check for direct number & padded version (8 digits)
-			if($is_media){ $filename = $media_number;
-			}else if($mediapad){ $filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);}
-			
-			if($filename){
-				//ok, it's a single media page, (obeying custom bussiness logic for GIFSTER);
+			if($media_number && file_exists($json_file)){
+				$filename   = false;
+				$media_json = Helpers::loadJSON($json_file);
+				$is_media   = in_array($media_number, $media_json);
+				$mediapad   = in_array(str_pad($media_number, 8, '0', STR_PAD_LEFT), $media_json);
 				
-				//set parent data
-				$parent = new Page($this->parent_url);	
-				$parent_data = $parent->data;
+				//solve naming inconsistency, check for direct number & padded version (8 digits)
+				if($is_media){ $filename = $media_number;
+				}else if($mediapad){ $filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);}
 				
-				//start template
-				$view = new dynTemplate("single");
-				$view->parent = $parent_data;
-				$view->imgSrc = $filename;
-				
-				//render
-				echo $view;
-				
-				die;	
+				if($filename){
+					//ok, it's a single media page, (obeying custom bussiness logic for GIFSTER);
+					
+					//set parent data
+					$parent = new Page($this->parent_url);	
+					$parent_data = $parent->data;
+					
+					//start template
+					$view = new dynTemplate("single");
+					$view->parent = $parent_data;
+					$view->imgSrc = $filename;
+					
+					//render
+					echo $view;
+					
+					die;	
 				}
 			}
 		}
