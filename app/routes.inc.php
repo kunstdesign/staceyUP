@@ -60,12 +60,6 @@ Class Routes {
 			}
 		}
 	}
-	function route_test(){
-		if(preg_match('/\/01\/?$/', $this->url_path)){
-			$view = new dynTemplate("single");
-			$view->imgSrc = "Hello world!";
-			echo $view;
-			die;
 		}
 	}
 }
