@@ -64,26 +64,31 @@ Class Routes {
 	}
 	
 	function route_single(){
+		//media_number
 		$media_match = Array();
 		preg_match('/\/(\d+)\/?$/', $this->url_path, $media_match);
 		$media_number = $media_match[1];
 
 		$json_file = $this->parent_path.'/_media.json';
+		
 		if($media_number && file_exists($json_file)){
-			$filename = false;
+			$filename   = false;
 			$media_json = Helpers::loadJSON($json_file);
-			$is_media = in_array($media_number, $media_json);
-			$mediapad = in_array(str_pad($media_number, 8, '0', STR_PAD_LEFT), $media_json);
+			$is_media   = in_array($media_number, $media_json);
+			$mediapad   = in_array(str_pad($media_number, 8, '0', STR_PAD_LEFT), $media_json);
 			
-			if($is_media){
-				$filename = $media_number;
-			}else if($mediapad){
-				$filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);
-			}
+			//solve naming inconsistency, check for direct number & padded version (8 digits)
+			if($is_media){ $filename = $media_number;
+			}else if($mediapad){ $filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);}
+			
 			if($filename){
+				//start template
 				$view = new dynTemplate("single");
 				$view->imgSrc = $filename;
+				
+				//render
 				echo $view;
+				
 				die;	
 			}
 		}
