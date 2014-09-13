@@ -64,6 +64,7 @@ Class Routes {
 	}
 	
 	function route_single(){
+		if(preg_match('/\/\d+\/?$/', $this->url_path)){
 		//media_number
 		$media_match = Array();
 		preg_match('/\/(\d+)\/?$/', $this->url_path, $media_match);
@@ -97,6 +98,7 @@ Class Routes {
 				echo $view;
 				
 				die;	
+				}
 			}
 		}
 	}
