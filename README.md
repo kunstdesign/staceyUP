@@ -13,7 +13,7 @@
   - [X] Routes to _media.json (for APIs)
   - [X] Render pages based on _media.json
   - [X] correct routing to individual pages
-  - [ ] Add parent data to the dynamic templates
+  - [X] Add parent data to the dynamic templates
 - [ ] Add routes to JSONs, for READ APIs
 - [ ] clean up
 
