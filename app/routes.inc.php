@@ -82,8 +82,15 @@ Class Routes {
 			}else if($mediapad){ $filename = str_pad($media_number, 8, '0', STR_PAD_LEFT);}
 			
 			if($filename){
+				//ok, it's a single media page, (obeying custom bussiness logic for GIFSTER);
+				
+				//set parent data
+				$parent = new Page($this->parent_url);	
+				$parent_data = $parent->data;
+				
 				//start template
 				$view = new dynTemplate("single");
+				$view->parent = $parent_data;
 				$view->imgSrc = $filename;
 				
 				//render
