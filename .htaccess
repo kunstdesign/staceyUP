@@ -1,3 +1,4 @@
+Options -Indexes
 RewriteEngine on
 
 # Some hosts require a rewritebase rule, if so, uncomment the RewriteBase line below. If you are running from a subdirectory, your rewritebase should match the name of the path to where stacey is stored.
@@ -5,6 +6,7 @@ RewriteEngine on
 #RewriteBase /
 
 ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
 
 # Rewrite any calls to *.html, *.json, *.xml, *.atom, *.rss, *.rdf or *.txt if a folder matching * exists
 RewriteCond %{REQUEST_FILENAME} !-f
