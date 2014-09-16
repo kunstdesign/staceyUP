@@ -12,6 +12,10 @@ Class Asset {
     $this->set_default_data($file_path);
   }
 
+  static function link_path($file_path) {
+    return preg_replace('/^\.\//', Helpers::relative_root_path(), $file_path);
+  }
+
   function construct_link_path($file_path) {
     return preg_replace('/^\.\//', Helpers::relative_root_path(), $file_path);
   }

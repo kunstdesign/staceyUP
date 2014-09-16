@@ -1,0 +1,5 @@
+{% for gifster in page.gifsters %}
+  <div class="image">
+    <a href="{{ gifster.link }}" title="{{ gifster.slug }}"><img src="{{ gifster.JPG_src }}" alt="{{ gifster.slug }}" width="{{ gifster.width }}" height="{{ gifster.height }}"></a>
+  </div>
+{% endfor %}

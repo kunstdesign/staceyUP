@@ -38,6 +38,9 @@
           {% endif %}
         </div>
         {% include 'partials/assets/media.html' %}
+        {% for gifster in page.gifsters %}
+          <a href="{{ gifster.link }}">{{ gifster.slug }}</a>
+        {% endfor %}
       </div>
       <hr>
       <p id="footer" class="col six">&copy; Copyright {{ page.name }} {{ page.current_year }} <a class="atom-rss" href="{{ page.root_path }}/?/feed/">RSS</a><br>

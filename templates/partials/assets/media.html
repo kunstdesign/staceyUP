@@ -1,5 +1,7 @@
 <div id="media">
-  {% if page.images %}
+  {% if page.gifsters %}
+    {% include 'partials/assets/gifsters.html' %}
+  {% elseif page.images %}
     {% include 'partials/assets/images.html' %}
   {% endif %}
 

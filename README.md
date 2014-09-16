@@ -14,6 +14,8 @@
   - [X] Render pages based on _media.json
   - [X] correct routing to individual pages
   - [X] Add parent data to the dynamic templates
+  - [X] Add media link to media objects
+  - [ ] gifster specific dyn templates
 - [ ] Add routes to JSONs, for READ APIs
 - [ ] clean up
 
