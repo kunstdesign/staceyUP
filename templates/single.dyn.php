@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+// var_dump($current)
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
   "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -86,7 +88,7 @@
 			</div>
 			<div id="media">
 				<div class="image">
-					<img src="<?php echo $imgSrc; ?>" alt="Test Image 1" width="560" height="430">
+					<img src="<?php echo $current['JPG_url']; ?>" alt="Test Image 1" width="560" height="430">
 				</div>
 			</div>
 

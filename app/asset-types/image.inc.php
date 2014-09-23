@@ -29,9 +29,8 @@ Class Image extends Asset {
 
     # set asset.width & asset.height variables
     $img_data = getimagesize($file_path, $info);
-    preg_match_all('/\d+/', $img_data[3], $dimensions);
-    $this->data['width'] = $dimensions[0][0];
-    $this->data['height'] = $dimensions[0][1];
+    $this->data['width'] = $img_data[0];
+    $this->data['height'] = $img_data[1];
 
     # set iptc variables
     if(isset($info["APP13"])) {

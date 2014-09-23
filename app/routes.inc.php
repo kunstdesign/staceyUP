@@ -92,8 +92,9 @@ Class Routes {
 					
 					//start template
 					$view = new dynTemplate("single");
-					$view->parent = $parent_data;
-					$view->imgSrc = $filename;
+					$view->parent  = $parent_data;
+					$view->imgSrc  = $filename;
+					$view->current = $parent_data['gifsters'][$filename];
 					
 					//render
 					echo $view;

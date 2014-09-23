@@ -30,22 +30,24 @@ Class Gifster {
 				$a[$name][$type.'_src']  = Asset::link_path($dir.'/'.$name.'.'.$ext);
 				$a[$name][$type.'_file'] = preg_replace('/^(?:\.\.\/)+([\s\S]+)$/', '$1', $a[$name][$type.'_src']);
 				$a[$name][$type.'_PHPfile'] = Config::$root_folder . $a[$name][$type.'_file'];
+				$a[$name][$type.'_url']  = preg_replace('/^(?:\.\.?\/)+([\s\S]+)$/', '/$1', $a[$name][$type.'_src']);
+				
 				
 				$a[$name]['slug'] = $name;
 				$a[$name]['link'] = '/'.Helpers::file_path_to_url($dir).'/'.$name.'/';
 				
 				
 				if($type = "JPG" && !isset($a[$name]['image_size']) ){
-					$file_path = '.'.$a[$name][$type.'_PHPfile'];
-					if(file_exists($file_path)){
-						$a[$name]['image_size'] = getimagesize($file_path);
-						$a[$name]['width']      = $img_size[0];
-						$a[$name]['height']     = $img_size[1];	
-					}else{
-						echo 'error file does not exist';
+					$php_to_file_path = '.'.$a[$name]["JPG_url"];
+					if($php_to_file_path != '.' && file_exists($php_to_file_path)){
+						$img_size = getimagesize($php_to_file_path);
+						if($img_size){
+							$a[$name]['width']      = $img_size[0];
+							$a[$name]['height']     = $img_size[1];	
+						}
 					}
 				}
-				}
+			}
 		}
 		
 		$b = array_filter($a, function($val){
