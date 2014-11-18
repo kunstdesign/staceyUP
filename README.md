@@ -1,4 +1,4 @@
-# StaceyUP@0.0.0
+# StaceyUP@0.0.0 [abandonware]
 
 ### based off kolber/Stacey@3.0.0
 
